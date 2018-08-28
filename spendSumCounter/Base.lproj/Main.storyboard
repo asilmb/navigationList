@@ -52,16 +52,20 @@
                                     <segment title="€"/>
                                     <segment title="₽"/>
                                 </segments>
+                                <connections>
+                                    <action selector="currencyChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="Pz8-4v-esp"/>
+                                </connections>
                             </segmentedControl>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PJD-kl-ai9" userLabel="Поле суммы">
                                 <rect key="frame" x="16" y="98" width="343" height="44"/>
                                 <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите сумму" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="SgC-Q9-xMy">
-                                        <rect key="frame" x="16" y="12" width="311" height="20"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Введите сумму" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="SgC-Q9-xMy">
+                                        <rect key="frame" x="8" y="12" width="311" height="20"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="16"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <connections>
+                                            <action selector="amountChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="A9a-82-PxL"/>
                                             <outlet property="delegate" destination="BYZ-38-t0r" id="Oil-RP-x8O"/>
                                         </connections>
                                     </textField>

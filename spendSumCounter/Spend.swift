@@ -10,14 +10,23 @@ import Foundation
 
 class Spend {
     
-    let sum: Double
-    let currency: CurrencyEnum
+    var amount: Double
+    var currency: CurrencyEnum
     
     init(howMuch value: Double, currency: CurrencyEnum) {
-        self.sum = value
+        self.amount = value
         self.currency = currency
     }
     
+    func getStringSum() -> String {
+        return String(format:"%.1f", self.amount)
+    }
+    func getCurrencyHash() -> Int {
+        return self.currency.hashValue
+    }
+    func getCurrencyRaw() -> String {
+        return self.currency.rawValue
+    }
 }
 
 enum CurrencyEnum: String {

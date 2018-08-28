@@ -31,6 +31,7 @@ class NewPlaceViewController: UIViewController {
         self.navigationItem.setRightBarButton(rightSaveButton, animated: true)
         self.navigationItem.setLeftBarButton(leftBackButton , animated: true)
         updateLabelsByPlaceModel(model: placeModel)
+       
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,9 +88,8 @@ class NewPlaceViewController: UIViewController {
         }
       
         if segue.identifier == "showExpence"{
-            print(self.placeModel.spend.sum)
             let vc = segue.destination as! ExpenceViewController
-            vc.updateViewFields(model: self.placeModel)
+            vc.spend = self.placeModel.spend
         }
         if segue.identifier == "savePlace" {
             let vc = segue.destination as! PlacesViewController
@@ -99,17 +99,20 @@ class NewPlaceViewController: UIViewController {
     }
     
     func updateLabelsByPlaceModel(model placeModel: Place){
-        spendLabel.text = "\(placeModel.spend.sum)\(placeModel.spend.currency.rawValue)"
+        spendLabel.text = "\(placeModel.spend.amount)\(placeModel.spend.currency.rawValue)"
         nameTextField.text = placeModel.name
         descriptionLabel.text = placeModel.description
         rateLabel.text = "\(placeModel.rate.rawValue)"
+        
     }
     
     func updateModelByLabels(with sender: UIStoryboardSegue){
         if sender.identifier == "closeExpense" {
-            let expenseVC = sender.source as? ExpenceViewController
-            expenseVC?.updateSpendFields(model: self.placeModel)
+            let expenseVC = sender.source as! ExpenceViewController
+            self.placeModel.spend = expenseVC.spend
+            updateLabelsByPlaceModel(model: placeModel)
         }
+        
         if sender.identifier == "closeMap" {
             //        geoLabel.text = :todo
             
