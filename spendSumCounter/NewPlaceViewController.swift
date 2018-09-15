@@ -84,7 +84,8 @@ class NewPlaceViewController: UIViewController {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMap" {
-
+            let vc = segue.destination as! MapViewController
+            vc.choosePoint = true
         }
       
         if segue.identifier == "showExpence"{

@@ -19,7 +19,7 @@ class MapViewController: UIViewController {
         super.viewDidLoad()
        
         
-        MapView.addAnnotations(annotations)
+        
         // Do any additional setup after loading the view.
     }
 
