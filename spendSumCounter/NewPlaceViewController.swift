@@ -46,13 +46,8 @@ class NewPlaceViewController: UIViewController {
     
     @IBAction func backFromExpence(sender: UIStoryboardSegue){
         let expenseVC = sender.source as? ExpenceViewController
-        let currencySC = expenseVC!.currency.titleForSegment(at: expenseVC!.currency.selectedSegmentIndex)
-        let currencyEnum = CurrencyEnum(rawValue: CurrencyEnum.RawValue(currencySC!))!
-        if let amountInput =  Double(expenseVC!.amount.text!){
-            placeModel.spend = Spend(howMuch: amountInput, currency: currencyEnum)
-            updateLabelsByPlaceModel(model: placeModel)
-        }
-        
+        placeModel.spend = expenseVC!.spend
+        updateLabelsByPlaceModel(model: placeModel)
     }
     
     @IBAction func nameChanged(_ sender: UITextField) {
@@ -80,14 +75,13 @@ class NewPlaceViewController: UIViewController {
     @objc func savePlace(sender: UIStoryboardSegue){
         self.performSegue(withIdentifier: "savePlace", sender: self)
     }
+    
     // MARK: - Fucks
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMap" {
             let vc = segue.destination as! MapViewController
-            vc.choosePoint = true
         }
-      
         if segue.identifier == "showExpence"{
             let vc = segue.destination as! ExpenceViewController
             vc.spend = self.placeModel.spend
@@ -100,7 +94,7 @@ class NewPlaceViewController: UIViewController {
     }
     
     func updateLabelsByPlaceModel(model placeModel: Place){
-        spendLabel.text = "\(placeModel.spend.amount)\(placeModel.spend.currency.rawValue)"
+        spendLabel.text = "\(placeModel.spend.amount)\(placeModel.spend.currency.sign)"
         nameTextField.text = placeModel.name
         descriptionLabel.text = placeModel.description
         rateLabel.text = "\(placeModel.rate.rawValue)"

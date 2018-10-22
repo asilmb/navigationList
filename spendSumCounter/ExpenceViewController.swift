@@ -39,22 +39,20 @@ class ExpenceViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var backgroundView: UIView!
     
-    @IBOutlet weak var doneButton: UISegmentedControl!
+    @IBOutlet weak var doneButton: UIButton!
     
-    @IBOutlet weak var readyButton: UIButton!
     
 
     @IBAction func amountChanged(_ sender: UITextField) {
         if let amountInput =  Double(sender.text!){
             self.spend.amount = amountInput
         }
-        
     }
     
     @IBAction func currencyChanged(_ sender: UISegmentedControl) {
-        let currency = self.currency.titleForSegment(at: self.currency.selectedSegmentIndex)
-        let currencyEnum = CurrencyEnum(rawValue: CurrencyEnum.RawValue(currency!))!
-        self.spend.currency = currencyEnum
+        let currency = CurrencyEnum.getRawValue(at: sender.selectedSegmentIndex)
+        let currencyEnum = CurrencyEnum.init(rawValue: currency)
+        self.spend.currency = currencyEnum!
     }
     
     private func configureUI() {
@@ -62,12 +60,13 @@ class ExpenceViewController: UIViewController, UITextFieldDelegate {
         
         doneButton.layer.cornerRadius = 8
         
-        readyButton.layer.cornerRadius = 6
-
+        for value in CurrencyEnum.allValues {
+            currency.setTitle(value.sign, forSegmentAt: value.identifier)
+        }
     }
     func updateViewFields() {
         self.amount.text = "\(self.spend.getStringSum())"
-        self.currency.titleForSegment(at: self.spend.getCurrencyHash())
+        self.currency.selectedSegmentIndex = self.spend.currency.identifier
     }
     
 }
