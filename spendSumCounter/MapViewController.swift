@@ -9,34 +9,40 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var MapView: MKMapView!
-    
-    var annotations: [MKPointAnnotation]!
+    let locationManager = CLLocationManager()
+    var annotation: MKPointAnnotation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        self.locationManager.requestAlwaysAuthorization()
         
+        // For use in foreground
+        self.locationManager.requestWhenInUseAuthorization()
         
-        // Do any additional setup after loading the view.
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            locationManager.startUpdatingLocation()
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard self.annotation == nil  else {
+            guard let locValue: CLLocationCoordinate2D = manager.location?.coordinate else { return }
+            self.annotation = MKPointAnnotation()
+            self.annotation?.coordinate = locValue
+            MapView.addAnnotation(self.annotation!)
+            return
+        }
+        MapView.addAnnotation(self.annotation!)
     }
-    */
-
 }

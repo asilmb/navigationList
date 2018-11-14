@@ -41,7 +41,9 @@ class NewPlaceViewController: UIViewController {
     // MARK: - @IBAction
     
     @IBAction func backFromMap(sender: UIStoryboardSegue){
-        
+        let mapVC = sender.source as? MapViewController
+        placeModel.annotation = mapVC!.annotation!
+        updateLabelsByPlaceModel(model: placeModel)
     }
     
     @IBAction func backFromExpence(sender: UIStoryboardSegue){
@@ -81,6 +83,7 @@ class NewPlaceViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showMap" {
             let vc = segue.destination as! MapViewController
+            vc.annotation = self.placeModel.annotation
         }
         if segue.identifier == "showExpence"{
             let vc = segue.destination as! ExpenceViewController
@@ -98,6 +101,7 @@ class NewPlaceViewController: UIViewController {
         nameTextField.text = placeModel.name
         descriptionLabel.text = placeModel.description
         rateLabel.text = "\(placeModel.rate.rawValue)"
+        geoLabel.text = "(\(placeModel.annotation.coordinate.latitude),\(placeModel.annotation.coordinate.longitude))"
         
     }
     

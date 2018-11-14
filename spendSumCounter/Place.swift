@@ -15,7 +15,7 @@ class Place {
     var transportType: TransportTypeEnum = TransportTypeEnum.airplane//суммы затрат с валютой
     var rate: RateEnum = RateEnum.excellent
     var description: String = ""
-    var coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    var annotation: MKPointAnnotation = MKPointAnnotation()
     
 }
 

@@ -433,7 +433,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <segue destination="xS9-YV-wYq" kind="unwind" identifier="closeMap" unwindAction="backFromMapWithSender:" id="oQq-j0-aWc"/>
+                                    <segue destination="xS9-YV-wYq" kind="unwind" unwindAction="backFromMapWithSender:" id="S04-nA-fjp"/>
                                 </connections>
                             </button>
                         </subviews>
